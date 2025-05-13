@@ -2,33 +2,34 @@ import java.io.*;
 import java.net.*;
 
 public class ChatClient {
-    private static final String SERVER_ADDRESS = "192.168.10.109"; // Endereço do servidor (altere para IP se for outra máquina)
-    private static final int SERVER_PORT = 12345; // Mesma porta usada pelo servidor
+    private static final String SERVER_ADDRESS = "localhost"; 
+    private static final int SERVER_PORT = 12345; // porta usada pelo servidor
 
     public static void main(String[] args) {
         try (
-            // Cria conexão com o servidor
+            // cria conexão com o servidor
             Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
-            // Lê mensagens vindas do servidor
+
+            
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            // Lê entrada do teclado do usuário
             BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
-            // Envia mensagens para o servidor
+
+            // envia mensagens para o servidor
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            // Thread para escutar e mostrar mensagens recebidas do servidor
+            // thread para escutar e mostrar mensagens recebidas do servidor
             Thread listener = new Thread(() -> {
                 String response;
                 try {
                     while ((response = input.readLine()) != null) {
-                        System.out.println(response); // Mostra mensagens recebidas no terminal
+                        System.out.println(response); // mensagens recebidas
                     }
                 } catch (IOException e) {
                     System.out.println("Desconectado do servidor.");
                 }
             });
 
-            listener.start(); // Inicia a escuta de mensagens
+            listener.start(); // escuta de mensagens
 
             String userInput;
             // Loop para ler mensagens digitadas e enviá-las ao servidor
