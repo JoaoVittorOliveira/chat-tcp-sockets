@@ -66,7 +66,7 @@ public class ChatServer {
                     if (message.equalsIgnoreCase("/sair")) { // Comando de saída
                         break;
                     }
-                    broadcast("["+name+"]: " + message, this); // Envia mensagem para os outros
+                    broadcast("["+name+"]: " + message, this); // Envia mensagem para todos
                 }
 
             } catch (IOException e) {
